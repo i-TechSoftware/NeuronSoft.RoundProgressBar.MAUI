@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	  <UseMaui>true</UseMaui>
+	  <AssemblyVersion>1.0.2212.13</AssemblyVersion>
+	  <FileVersion>1.0.2212.13</FileVersion>
+	  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <ApplicationDisplayVersion>1.0.2212.13</ApplicationDisplayVersion>
+    <ApplicationVersion>1.0.2212.13</ApplicationVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <ApplicationDisplayVersion>1.0.2212.13</ApplicationDisplayVersion>
+    <ApplicationVersion>1.0.2212.13</ApplicationVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="RoundProgressBar.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Maui.Graphics" Version="7.0.49" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.Maui.Controls">
+      <HintPath>..\..\..\..\Program Files\dotnet\packs\Microsoft.Maui.Controls.Ref.android\7.0.49\ref\net7.0-android30.0\Microsoft.Maui.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Maui.Controls.Xaml">
+      <HintPath>..\..\..\..\Program Files\dotnet\packs\Microsoft.Maui.Controls.Ref.android\7.0.49\ref\net7.0-android30.0\Microsoft.Maui.Controls.Xaml.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="RoundProgressBar.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+  </ItemGroup>
+	<ItemGroup>
+		<MauiXaml Update="RoundProgressBar.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+	</ItemGroup>
+
+</Project>

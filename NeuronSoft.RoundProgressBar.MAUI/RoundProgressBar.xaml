@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NeuronSoft.RoundProgressBar.MAUI.RoundProgressBar">
+<Border x:Name="ProgressBorder" StrokeThickness="0"  HeightRequest="75" WidthRequest="75" HorizontalOptions="Center">
+    <Grid>
+
+        <Ellipse x:Name="PathProgress" Grid.Column="0" Stroke="DarkGray"
+                 Margin="3,1,0,3"
+                 StrokeThickness="3"
+                 WidthRequest="64"
+                 HeightRequest="64"
+                 HorizontalOptions="Start"
+                 />
+    <Path Stroke="white" StrokeThickness="10" x:Name="ProgressLine" IsVisible="False">
+        <Path.Data>
+            <PathGeometry>
+                <PathGeometry.Figures>
+                    <PathFigureCollection>
+                        <PathFigure x:Name="StartPoint" StartPoint="31,1" >
+                            <PathFigure.Segments >
+                                <PathSegmentCollection>
+                                    <ArcSegment x:Name="ArcSegment"
+                                        Size="30,30"
+                                                RotationAngle="0"
+                                                IsLargeArc="True"
+                                                SweepDirection="Clockwise"
+                                                Point="31,1" 
+                                                />
+                                </PathSegmentCollection>
+                            </PathFigure.Segments>
+                        </PathFigure>
+                    </PathFigureCollection>
+                </PathGeometry.Figures>
+            </PathGeometry>
+        </Path.Data>
+    </Path>
+        <Label 
+            x:Name="ProgressLabel"
+            Text="0%" 
+            TextColor="White" 
+            HorizontalOptions="Center"
+            FontSize="12"
+            VerticalOptions="Center"
+            Margin="-1,0,0,5"></Label>
+        <!--<StackLayout VerticalOptions="End" HorizontalOptions="End" >
+            <Label x:Name="xLabel" TextColor="White" Text="x=0" VerticalOptions="End"></Label>
+            <Label x:Name="yLabel" TextColor="White" Text="y=0" VerticalOptions="End"></Label>
+        </StackLayout>-->
+        
+</Grid>
+    
+</Border>
+
+</ContentView>
