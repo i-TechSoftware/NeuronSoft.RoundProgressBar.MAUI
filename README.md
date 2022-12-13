@@ -1,4 +1,4 @@
-# NeuronSoft.RoundProgressBar.MAUI
+# Round Progress Bar for MAUI
 This repository contains a simple round progress bar for MAUI .NET 7
 
 ![](https://github.com/i-TechSoftware/NeuronSoft.RoundProgressBar.MAUI/blob/main/preview.png)
