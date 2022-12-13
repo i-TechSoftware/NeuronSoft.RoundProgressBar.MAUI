@@ -41,7 +41,7 @@ public partial class RoundProgressBar
     }
 
     public static readonly BindableProperty ProgressSizeProperty = BindableProperty.Create("ProgressSize", typeof(int),
-        typeof(RoundProgressBar), propertyChanged: ProgressSizePropertyChanged, defaultValue: 30);
+        typeof(RoundProgressBar), propertyChanged: ProgressSizePropertyChanged, defaultValue: 0);
 
     static void ProgressSizePropertyChanged(BindableObject bindable, object oldValue, object newValue) 
     {
@@ -90,6 +90,32 @@ public partial class RoundProgressBar
         ((RoundProgressBar)bindable).SetValue(ProgressFillProperty, newValue);
     }
 
+    public static readonly BindableProperty TextIsVisibleProperty = BindableProperty.Create("TextIsVisible", typeof(bool),
+        typeof(RoundProgressBar), propertyChanged: TextIsVisiblePropertyChanged, defaultValue: true);
+
+    static void TextIsVisiblePropertyChanged(BindableObject bindable, object oldValue, object newValue) 
+    {
+        RoundProgressBar progressBar = (RoundProgressBar)bindable;
+        progressBar.TextIsVisible = (bool)newValue;
+        ((RoundProgressBar)bindable).SetValue(TextIsVisibleProperty, newValue);
+    }
+
+  /// <summary>
+    /// Visibility of inner text
+    /// </summary>
+    public bool TextIsVisible
+    {
+        get => (bool)GetValue(TextIsVisibleProperty);
+        set
+        {
+            SetValue(TextIsVisibleProperty, value);
+            ProgressLabel.IsVisible= value;
+        }
+    }
+
+    /// <summary>
+    /// Brush to fill the inner circle
+    /// </summary>
     public Brush ProgressFill
     {
         get => (Brush)GetValue(ProgressFillProperty);
@@ -100,6 +126,9 @@ public partial class RoundProgressBar
         }
     }
 
+    /// <summary>
+    /// Inner text font family
+    /// </summary>
     public string FontFamily
     {
         get => (string)GetValue(FontFamilyProperty);
@@ -110,6 +139,9 @@ public partial class RoundProgressBar
         }
     }
 
+    /// <summary>
+    /// Inner text font attribute
+    /// </summary>
     public FontAttributes FontAttributes
     {
         get => (FontAttributes)GetValue(FontAttributesProperty);
@@ -120,6 +152,9 @@ public partial class RoundProgressBar
         }
     }
 
+    /// <summary>
+    /// Inner text size
+    /// </summary>
     public double FontSize
     {
         get => (double)GetValue(FontSizeProperty);
@@ -130,6 +165,9 @@ public partial class RoundProgressBar
         }
     }
 
+    /// <summary>
+    /// Progressbar size
+    /// </summary>
     public int ProgressSize
     {
         get => (int)GetValue(ProgressSizeProperty);
@@ -138,7 +176,7 @@ public partial class RoundProgressBar
             SetValue(ProgressSizeProperty, value);
             ProgressBorder.WidthRequest = value*2+15;
             ProgressBorder.HeightRequest= value*2+15;
-            StartPoint.StartPoint = new Point(value + 1, 1);
+            StartPoint.StartPoint = new Point(value+5, 7);
             PathProgress.WidthRequest = value * 2 + 4;
             PathProgress.HeightRequest = value * 2 + 4;
             SizeOfProgress = new Size(value, value);
@@ -146,6 +184,9 @@ public partial class RoundProgressBar
         }
     }
 
+    /// <summary>
+    /// Inner text color
+    /// </summary>
     public Color TextProgressColor
     {
         get => (Color)GetValue(TextProgressColorProperty);
@@ -156,6 +197,9 @@ public partial class RoundProgressBar
         }
     }
 
+    /// <summary>
+    /// Underlay line color
+    /// </summary>
     public Color PathProgressColor
     {
         get => (Color)GetValue(PathProgressColorProperty);
@@ -166,6 +210,9 @@ public partial class RoundProgressBar
         }
     }
 
+    /// <summary>
+    /// Progress bar line color
+    /// </summary>
     public Color ProgressColor
     {
         get => (Color)GetValue(ProgressColorProperty);
@@ -176,6 +223,10 @@ public partial class RoundProgressBar
         }
     }
 
+    /// <summary>
+    /// Percent progress.
+    ///  The value of the Progress parameter must be in the range 0..100
+    /// </summary>
     public double Progress
     {
         get => (double)GetValue(ProgressProperty);
@@ -196,12 +247,18 @@ public partial class RoundProgressBar
     }
 
   
-
+    /// <summary>
+    /// Calculation method
+    /// </summary>
     private void CalculateArc()
     {
+        if (Progress > 100 || Progress < 0)
+        {
+            throw new ArgumentOutOfRangeException("The value of the Progress parameter must be in the range 0..100");
+        }
         var radius = (int)SizeOfProgress.Width;
-        int deltaX = (int)SizeOfProgress.Width+1;
-        int deltaY = (int)SizeOfProgress.Width+1;
+        int deltaX = (int)SizeOfProgress.Width+5;
+        int deltaY = (int)SizeOfProgress.Width+7;
         if (Progress == 0)
         {
             ProgressLabel.Text = $"{Convert.ToInt32(Progress)}%";
@@ -238,8 +295,6 @@ public partial class RoundProgressBar
             y = Math.Abs(Math.Abs(radius  * Math.Cos(angle))-deltaY);
         }
 
-        /*xLabel.Text = $"x={x.ToString("N")}";
-        yLabel.Text = $"y={y.ToString("N")}";*/
         ArcSegment.Point = new Point(x, y);
         ProgressLine.IsVisible=true;
     }

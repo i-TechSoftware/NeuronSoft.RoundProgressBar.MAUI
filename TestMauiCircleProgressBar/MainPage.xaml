@@ -38,15 +38,16 @@
                 HorizontalOptions="Center" />
             <maui:RoundProgressBar 
                 x:Name="progressBar" 
-                Progress="0" 
+                Progress="0"
                 ProgressColor="Red" 
-                PathProgressColor="OrangeRed"
+                PathProgressColor="White"
                 TextProgressColor ="Black"
-                ProgressSize="40"
+                ProgressSize="30"
                 FontSize="18"
                 FontAttributes="Bold"
                 FontFamily="OswaldVariable"
                 ProgressFill="White"
+                TextIsVisible="True"
                 />
         </VerticalStackLayout>
     </ScrollView>

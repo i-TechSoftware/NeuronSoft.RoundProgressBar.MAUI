@@ -12,7 +12,7 @@
                  HeightRequest="64"
                  HorizontalOptions="Start"
                  />
-    <Path Stroke="white" StrokeThickness="10" x:Name="ProgressLine" IsVisible="False">
+    <Path Stroke="white" StrokeThickness="4" x:Name="ProgressLine" IsVisible="False">
         <Path.Data>
             <PathGeometry>
                 <PathGeometry.Figures>
