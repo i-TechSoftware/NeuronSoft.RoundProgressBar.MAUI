@@ -2,16 +2,18 @@
 
 public partial class RoundProgressBar
 {
-    public static readonly BindableProperty ProgressProperty = BindableProperty.Create("Progress", typeof(double),
-        typeof(RoundProgressBar), propertyChanged: ProgressPropertyChanged, defaultValue: 0.0);
+    public static readonly BindableProperty ProgressProperty = BindableProperty.Create( "Progress", typeof(double),
+        typeof(RoundProgressBar), propertyChanged: ProgressPropertyChanged, defaultBindingMode: BindingMode.TwoWay, defaultValue: 0.0);
 
     static void ProgressPropertyChanged(BindableObject bindable, object oldValue, object newValue) 
     {
+        RoundProgressBar progressBar = (RoundProgressBar)bindable;
+        progressBar.Progress = (double)newValue;
         ((RoundProgressBar)bindable).SetValue(ProgressProperty, newValue);
     }
 
     public static readonly BindableProperty ProgressColorProperty = BindableProperty.Create("ProgressColor", typeof(Color),
-        typeof(RoundProgressBar), propertyChanged: ProgressColorPropertyChanged, defaultValue: Colors.White);
+        typeof(RoundProgressBar), propertyChanged: ProgressColorPropertyChanged, defaultBindingMode: BindingMode.TwoWay, defaultValue: Colors.White);
 
     static void ProgressColorPropertyChanged(BindableObject bindable, object oldValue, object newValue) 
     {
@@ -21,7 +23,7 @@ public partial class RoundProgressBar
     }
 
     public static readonly BindableProperty PathProgressColorProperty = BindableProperty.Create("PathProgressColor", typeof(Color),
-        typeof(RoundProgressBar), propertyChanged: PathProgressColorPropertyChanged, defaultValue: Colors.DarkGray);
+        typeof(RoundProgressBar), propertyChanged: PathProgressColorPropertyChanged, defaultBindingMode: BindingMode.TwoWay, defaultValue: Colors.DarkGray);
 
     static void PathProgressColorPropertyChanged(BindableObject bindable, object oldValue, object newValue) 
     {
@@ -31,7 +33,7 @@ public partial class RoundProgressBar
     }
 
     public static readonly BindableProperty TextProgressColorProperty = BindableProperty.Create("TextProgressColor", typeof(Color),
-        typeof(RoundProgressBar), propertyChanged: TextProgressColorPropertyChanged, defaultValue: Colors.White);
+        typeof(RoundProgressBar), propertyChanged: TextProgressColorPropertyChanged, defaultBindingMode: BindingMode.TwoWay, defaultValue: Colors.White);
 
     static void TextProgressColorPropertyChanged(BindableObject bindable, object oldValue, object newValue) 
     {
@@ -41,7 +43,7 @@ public partial class RoundProgressBar
     }
 
     public static readonly BindableProperty ProgressSizeProperty = BindableProperty.Create("ProgressSize", typeof(int),
-        typeof(RoundProgressBar), propertyChanged: ProgressSizePropertyChanged, defaultValue: 0);
+        typeof(RoundProgressBar), propertyChanged: ProgressSizePropertyChanged, defaultBindingMode: BindingMode.TwoWay, defaultValue: 0);
 
     static void ProgressSizePropertyChanged(BindableObject bindable, object oldValue, object newValue) 
     {
@@ -51,7 +53,7 @@ public partial class RoundProgressBar
     }
 
     public static readonly BindableProperty FontSizeProperty = BindableProperty.Create("FontSize", typeof(double),
-        typeof(RoundProgressBar), propertyChanged: FontSizePropertyChanged, defaultValue: 12.0);
+        typeof(RoundProgressBar), propertyChanged: FontSizePropertyChanged, defaultBindingMode: BindingMode.TwoWay, defaultValue: 12.0);
 
     static void FontSizePropertyChanged(BindableObject bindable, object oldValue, object newValue) 
     {
@@ -61,7 +63,7 @@ public partial class RoundProgressBar
     }
 
     public static readonly BindableProperty FontAttributesProperty = BindableProperty.Create("FontAttributes", typeof(FontAttributes),
-        typeof(RoundProgressBar), propertyChanged: FontAttributesPropertyChanged, defaultValue: FontAttributes.None);
+        typeof(RoundProgressBar), propertyChanged: FontAttributesPropertyChanged, defaultBindingMode: BindingMode.TwoWay, defaultValue: FontAttributes.None);
 
     static void FontAttributesPropertyChanged(BindableObject bindable, object oldValue, object newValue) 
     {
@@ -71,7 +73,7 @@ public partial class RoundProgressBar
     }
 
     public static readonly BindableProperty FontFamilyProperty = BindableProperty.Create("FontFamily", typeof(string),
-        typeof(RoundProgressBar), propertyChanged: FontFamilyPropertyChanged, defaultValue: string.Empty);
+        typeof(RoundProgressBar), propertyChanged: FontFamilyPropertyChanged, defaultBindingMode: BindingMode.TwoWay, defaultValue: string.Empty);
 
     static void FontFamilyPropertyChanged(BindableObject bindable, object oldValue, object newValue) 
     {
@@ -81,7 +83,7 @@ public partial class RoundProgressBar
     }
 
     public static readonly BindableProperty ProgressFillProperty = BindableProperty.Create("ProgressFill", typeof(Brush),
-        typeof(RoundProgressBar), propertyChanged: ProgressFillPropertyChanged, defaultValue: Brush.Transparent);
+        typeof(RoundProgressBar), propertyChanged: ProgressFillPropertyChanged, defaultBindingMode: BindingMode.TwoWay, defaultValue: Brush.Transparent);
 
     static void ProgressFillPropertyChanged(BindableObject bindable, object oldValue, object newValue) 
     {
@@ -91,13 +93,36 @@ public partial class RoundProgressBar
     }
 
     public static readonly BindableProperty TextIsVisibleProperty = BindableProperty.Create("TextIsVisible", typeof(bool),
-        typeof(RoundProgressBar), propertyChanged: TextIsVisiblePropertyChanged, defaultValue: true);
+        typeof(RoundProgressBar), propertyChanged: TextIsVisiblePropertyChanged, defaultBindingMode: BindingMode.TwoWay, defaultValue: true);
 
     static void TextIsVisiblePropertyChanged(BindableObject bindable, object oldValue, object newValue) 
     {
         RoundProgressBar progressBar = (RoundProgressBar)bindable;
         progressBar.TextIsVisible = (bool)newValue;
         ((RoundProgressBar)bindable).SetValue(TextIsVisibleProperty, newValue);
+    }
+
+    public static readonly BindableProperty BackgroundColorProperty = BindableProperty.Create("BackgroundColorColor", typeof(Color),
+        typeof(RoundProgressBar), propertyChanged: BackgroundColorPropertyChanged, defaultBindingMode: BindingMode.TwoWay, defaultValue: Colors.Transparent);
+
+    static void BackgroundColorPropertyChanged(BindableObject bindable, object oldValue, object newValue) 
+    {
+        RoundProgressBar progressBar = (RoundProgressBar)bindable;
+        progressBar.BackgroundColor = (Color)newValue;
+        ((RoundProgressBar)bindable).SetValue(BackgroundColorProperty, newValue);
+    }
+
+    /// <summary>
+    /// Background color of control
+    /// </summary>
+    public Color BackgroundColor
+    {
+        get => (Color)GetValue(BackgroundColorProperty);
+        set
+        {
+            SetValue(BackgroundColorProperty, value);
+            ProgressBorder.BackgroundColor = value;
+        }
     }
 
   /// <summary>
