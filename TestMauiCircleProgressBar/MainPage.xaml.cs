@@ -48,7 +48,7 @@ namespace TestMauiCircleProgressBar
         public MainViewModel()
         {
             ClickButtonCommand = new DelegateCommand(OnClickButtonCommand);
-            
+            Progress = 100;
         }
 
         private async void OnClickButtonCommand()
